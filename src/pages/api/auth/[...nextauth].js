@@ -2,7 +2,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth from "next-auth";
 import Moralis from "moralis";
 
-export default NextAuth({
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "MoralisAuth",
@@ -53,4 +53,6 @@ export default NextAuth({
   session: {
     strategy: "jwt",
   },
-});
+};
+
+export default NextAuth(authOptions);
