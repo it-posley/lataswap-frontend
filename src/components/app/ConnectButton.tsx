@@ -59,7 +59,7 @@ const ConnectButton: React.FC<IConnectButton> = ({ className }) => {
         </div>
       )}
       {status === "authenticated" && (
-        <div className="inline-flex items-center rounded-3xl border border-transparent bg-fuchsia-700 px-3 py-2.5 text-sm font-extrabold leading-3 text-fuchsia-200 hover:text-fuchsia-300">
+        <div className="inline-flex items-center rounded-3xl border border-transparent bg-gradient-to-r from-fuchsia-900 to-rose-500 px-3 py-2.5 text-sm font-extrabold leading-3 text-white hover:to-fuchsia-900">
           <ArrowsRightLeftIcon
             className="mr-2 -ml-0.5 h-4 w-4"
             aria-hidden="true"
