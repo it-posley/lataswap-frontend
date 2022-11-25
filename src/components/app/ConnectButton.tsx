@@ -1,5 +1,5 @@
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useAccount, useConnect, useSignMessage, useDisconnect } from "wagmi";
 import axios from "axios";
 import { ArrowsRightLeftIcon } from "@heroicons/react/20/solid";
@@ -19,6 +19,8 @@ const ConnectButton: React.FC<IConnectButton> = ({ className }) => {
     //disconnects the web3 provider if it's already active
     if (isConnected) {
       await disconnectAsync();
+      await signOut();
+      return;
     }
 
     // enabling the web3 provider metamask
