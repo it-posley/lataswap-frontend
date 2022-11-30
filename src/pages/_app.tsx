@@ -6,14 +6,16 @@ import {
   configureChains,
   defaultChains,
   WagmiConfig,
+  chain,
 } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 
 import "../styles/globals.css";
 
-const { provider, webSocketProvider } = configureChains(defaultChains, [
-  publicProvider(),
-]);
+const { provider, webSocketProvider } = configureChains(
+  [chain.hardhat, chain.mainnet, chain.goerli],
+  [publicProvider()]
+);
 
 const client = createClient({
   provider,
