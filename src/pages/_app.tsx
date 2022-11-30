@@ -10,6 +10,12 @@ import {
 } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 
+import {
+  ConnectKitProvider,
+  ConnectKitButton,
+  getDefaultClient,
+} from "connectkit";
+
 import "../styles/globals.css";
 
 const { provider, webSocketProvider } = configureChains(
@@ -29,9 +35,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <WagmiConfig client={client}>
-      <SessionProvider session={session}>
+      <ConnectKitProvider>
         <Component {...pageProps} />
-      </SessionProvider>
+      </ConnectKitProvider>
     </WagmiConfig>
   );
 };
