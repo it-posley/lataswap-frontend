@@ -104,9 +104,8 @@ const Swap: React.FC<ISwap> = ({ className }) => {
           >
             {isLoading ? "Minting" : "Mint"}
           </button>
-          {(isPrepareError || isError) && (
-            <div>Error : {(prepareError || error)?.message}</div>
-          )}
+          {isPrepareError && <div>Prepare Error : {prepareError?.message}</div>}
+          {isError && <div>Error : {error?.message}</div>}
         </div>
       </div>
     </div>
