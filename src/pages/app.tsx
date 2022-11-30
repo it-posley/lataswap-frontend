@@ -1,3 +1,4 @@
+import Test from "@components/app/Test";
 import type { NextPage } from "next";
 import Head from "next/head";
 import FundStat from "../components/app/FundStat";
@@ -19,7 +20,8 @@ const AppPage: NextPage = () => {
             <FundStat />
           </div>
           <div className="flex-1">
-            <Swap />
+            {/* <Swap /> */}
+            <Test />
           </div>
         </div>
       </main>
