@@ -20,8 +20,8 @@ const AppPage: NextPage = () => {
             <FundStat />
           </div>
           <div className="flex-1">
-            {/* <Swap /> */}
-            <Test />
+            <Swap />
+            {/* <Test /> */}
           </div>
         </div>
       </main>
