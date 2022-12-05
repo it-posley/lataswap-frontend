@@ -1,4 +1,3 @@
-import Test from "@components/app/Test";
 import type { NextPage } from "next";
 import Head from "next/head";
 import FundStat from "../components/app/FundStat";

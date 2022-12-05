@@ -1,6 +1,4 @@
-import { type AppType } from "next/app";
-import { type Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import {
   createClient,
   configureChains,
@@ -9,12 +7,9 @@ import {
   chain,
 } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-
-import {
-  ConnectKitProvider,
-  ConnectKitButton,
-  getDefaultClient,
-} from "connectkit";
+import { type AppType } from "next/app";
+import { type Session } from "next-auth";
+import { SessionProvider } from "next-auth/react";
 
 import "../styles/globals.css";
 
@@ -34,11 +29,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <WagmiConfig client={client}>
-      <ConnectKitProvider>
-        <Component {...pageProps} />
-      </ConnectKitProvider>
-    </WagmiConfig>
+    <ChakraProvider>
+      <WagmiConfig client={client}>
+        <SessionProvider session={session} refetchInterval={0}>
+          <Component {...pageProps} />
+        </SessionProvider>
+      </WagmiConfig>
+    </ChakraProvider>
   );
 };
 

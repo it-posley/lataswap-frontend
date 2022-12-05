@@ -6,7 +6,7 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 import { BigNumber } from "ethers";
-import useDebounce from "src/hooks/useDebounce";
+import useDebounce from "../../hooks/useDebounce";
 
 export interface ISwap {
   className?: string;

@@ -14,11 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "noUncheckedIndexedAccess": true,
-    "baseUrl": ".",
-    "paths": {
-      "@components/*": ["src/components/*"]
-    }
+    "baseUrl": "./src"
   },
   "include": [
     "next-env.d.ts",
@@ -27,8 +23,9 @@
     "**/*.cjs",
     "**/*.mjs",
     "src/pages/api/auth/request-message.js",
-    "src/pages/api/auth/[...nextauth].js",
-    "src/components/app/Test.jsx"
+    "src/pages/api/auth/[...nextauth].ts",
+    "src/components/app/depreciated/Test.jsx",
+    "src/pages/api/moralis/[...moralis].js"
   ],
   "exclude": ["node_modules"]
 }
