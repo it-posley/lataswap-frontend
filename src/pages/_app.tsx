@@ -9,13 +9,7 @@ import {
   localhost,
   hardhat,
 } from "wagmi/chains";
-import {
-  createClient,
-  configureChains,
-  defaultChains,
-  WagmiConfig,
-  chain,
-} from "wagmi";
+import { createClient, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 
 import { ConnectKitProvider, getDefaultClient } from "connectkit";
@@ -24,7 +18,7 @@ import "../styles/globals.css";
 
 const alchemyId = process.env.ALCHEMY_ID;
 
-const chains = [mainnet, polygon, optimism, arbitrum, localhost, hardhat];
+const chains = [hardhat];
 
 const client = createClient(
   getDefaultClient({
@@ -40,7 +34,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <WagmiConfig client={client}>
-      <ConnectKitProvider theme="auto">
+      <ConnectKitProvider theme="soft">
         <Component {...pageProps} />
       </ConnectKitProvider>
     </WagmiConfig>

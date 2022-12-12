@@ -7,6 +7,7 @@ import {
 } from "wagmi";
 import { BigNumber } from "ethers";
 import useDebounce from "src/hooks/useDebounce";
+import ApproveButton from "./ApproveButton";
 
 export interface ISwap {
   className?: string;
@@ -16,12 +17,16 @@ const Swap: React.FC<ISwap> = ({ className }) => {
   const [inputAmount, setInputAmount] = useState(0);
   const debouncedInputAmount = useDebounce(inputAmount, 500);
 
+  //approve function
+
+  //mint function
+
   const {
     config,
     error: prepareError,
     isError: isPrepareError,
   } = usePrepareContractWrite({
-    address: "0xF",
+    address: "0x124dDf9BdD2DdaD012ef1D5bBd77c00F05C610DA",
     abi: [
       {
         inputs: [
@@ -31,13 +36,13 @@ const Swap: React.FC<ISwap> = ({ className }) => {
             type: "uint256",
           },
         ],
-        name: "depositToLataSwap",
+        name: "userDeposit",
         outputs: [],
         stateMutability: "nonpayable",
         type: "function",
       },
     ],
-    functionName: "depositToLataSwap",
+    functionName: "userDeposit",
     args: [BigNumber.from(debouncedInputAmount)],
     enabled: Boolean(debouncedInputAmount),
   });
@@ -94,6 +99,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
         </div>
         {/* submit button */}
         <div className="flex justify-center">
+          <ApproveButton inputAmount={inputAmount} />
           <button
             onClick={(e) => {
               e.preventDefault();
