@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Logo } from "../ui";
-import ConnectButton from "./ConnectButton";
 import ConnectButton2 from "./ConnectButton2";
 
 export interface IHeader {
@@ -34,7 +33,6 @@ const Header: React.FC<IHeader> = ({ className }) => {
           </div>
         </nav>
         <div className="flex items-center">
-          {/* <ConnectButton /> */}
           <ConnectButton2 />
         </div>
       </div>

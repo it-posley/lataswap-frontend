@@ -2,6 +2,14 @@ import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import {
+  mainnet,
+  polygon,
+  optimism,
+  arbitrum,
+  localhost,
+  hardhat,
+} from "wagmi/chains";
+import {
   createClient,
   configureChains,
   defaultChains,
@@ -10,24 +18,21 @@ import {
 } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 
-import {
-  ConnectKitProvider,
-  ConnectKitButton,
-  getDefaultClient,
-} from "connectkit";
+import { ConnectKitProvider, getDefaultClient } from "connectkit";
 
 import "../styles/globals.css";
 
-const { provider, webSocketProvider } = configureChains(
-  [chain.hardhat, chain.mainnet, chain.goerli],
-  [publicProvider()]
-);
+const alchemyId = process.env.ALCHEMY_ID;
 
-const client = createClient({
-  provider,
-  webSocketProvider,
-  autoConnect: true,
-});
+const chains = [mainnet, polygon, optimism, arbitrum, localhost, hardhat];
+
+const client = createClient(
+  getDefaultClient({
+    appName: "LataSwap",
+    alchemyId,
+    chains,
+  })
+);
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -35,7 +40,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <WagmiConfig client={client}>
-      <ConnectKitProvider>
+      <ConnectKitProvider theme="auto">
         <Component {...pageProps} />
       </ConnectKitProvider>
     </WagmiConfig>
