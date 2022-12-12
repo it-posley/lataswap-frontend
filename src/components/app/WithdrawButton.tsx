@@ -8,7 +8,8 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 
-const ApproveButton = (props) => {
+
+const WithdrawButton = (props) => {
   const debouncedInputAmount = useDebounce(props.inputAmount, 500);
   const { config } = usePrepareContractWrite({
     //@todo hard coded USDC address on Mainnet, to be replaced depends on chains/input token
@@ -41,7 +42,7 @@ const ApproveButton = (props) => {
     functionName: "approve",
     //@todo hard code pool address, to be replaced
     args: [
-      "0x2BB8B93F585B43b06F3d523bf30C203d3B6d4BD4",
+      "0x124dDf9BdD2DdaD012ef1D5bBd77c00F05C610DA",
       BigNumber.from(debouncedInputAmount),
     ],
     enabled: Boolean(debouncedInputAmount),
@@ -56,9 +57,9 @@ const ApproveButton = (props) => {
       onClick={() => write?.()}
       className="w-full rounded-xl bg-slate-100 p-3 text-xl font-extrabold text-slate-400 hover:bg-slate-200"
     >
-      {isLoading ? "Approving" : "Approve"}
+      {isLoading ? "Withdrawing" : "Withdraw"}
     </button>
   );
 };
 
-export default ApproveButton;
+export default WithdrawButton;

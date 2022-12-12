@@ -8,6 +8,7 @@ import {
 import { BigNumber } from "ethers";
 import useDebounce from "src/hooks/useDebounce";
 import ApproveButton from "./ApproveButton";
+import WithdrawButton from "./WithDrawButton";
 
 export interface ISwap {
   className?: string;
@@ -16,8 +17,7 @@ export interface ISwap {
 const Swap: React.FC<ISwap> = ({ className }) => {
   const [inputAmount, setInputAmount] = useState(0);
   const debouncedInputAmount = useDebounce(inputAmount, 500);
-
-  //approve function
+  const USDC_Decimal = 10 ** 6;
 
   //mint function
 
@@ -26,7 +26,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
     error: prepareError,
     isError: isPrepareError,
   } = usePrepareContractWrite({
-    address: "0x124dDf9BdD2DdaD012ef1D5bBd77c00F05C610DA",
+    address: "0x2BB8B93F585B43b06F3d523bf30C203d3B6d4BD4",
     abi: [
       {
         inputs: [
@@ -110,8 +110,9 @@ const Swap: React.FC<ISwap> = ({ className }) => {
           >
             {isLoading ? "Minting" : "Mint"}
           </button>
-          {isPrepareError && <div>Prepare Error : {prepareError?.message}</div>}
-          {isError && <div>Error : {error?.message}</div>}
+          <WithdrawButton inputAmount={inputAmount} />
+          {/* {isPrepareError && <div>Prepare Error : {prepareError?.message}</div>}
+          {isError && <div>Error : {error?.message}</div>} */}
         </div>
       </div>
     </div>
