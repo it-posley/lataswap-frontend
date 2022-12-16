@@ -1,12 +1,5 @@
 import { useContractRead } from "wagmi";
-import { useState } from "react";
-import {
-  useAccount,
-  useConnect,
-  useDisconnect,
-  useEnsAvatar,
-  useEnsName,
-} from "wagmi";
+import { useAccount } from "wagmi";
 
 function readBalance() {
   const { address, connector, isConnected } = useAccount();
@@ -34,10 +27,10 @@ function readBalance() {
       },
     ],
     functionName: "getUserUSDCBalance",
-    args: ["0x70997970c51812dc3a010c7d01b50e0d17dc79c8"],
+    args: [address!],
   });
 
-  return address;
+  //   return <div>{data}</div>;
 }
 
 export default readBalance;

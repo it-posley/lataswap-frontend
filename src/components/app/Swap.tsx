@@ -84,7 +84,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
               </div>
               <div>
                 <p className="text-sm font-bold text-gray-400">
-                  Balance: {readBalance}
+                  {/* <readBalance /> */}
                 </p>
               </div>
             </div>
