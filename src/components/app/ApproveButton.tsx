@@ -8,7 +8,11 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 
-const ApproveButton = (props) => {
+export interface IApprove {
+  inputAmount: number;
+}
+
+const ApproveButton: React.FC<IApprove> = (props) => {
   const debouncedInputAmount = useDebounce(props.inputAmount, 500);
   const { config } = usePrepareContractWrite({
     //@todo hard coded USDC address on Mainnet, to be replaced depends on chains/input token
