@@ -28,7 +28,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
     error: prepareError,
     isError: isPrepareError,
   } = usePrepareContractWrite({
-    address: "0x2BB8B93F585B43b06F3d523bf30C203d3B6d4BD4",
+    address: "0x2d13826359803522cCe7a4Cfa2c1b582303DD0B4",
     abi: [
       {
         inputs: [
@@ -72,7 +72,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setInputAmount(parseFloat(e.target.value))
                 }
-                value={inputAmount}
+               value={inputAmount}
               ></input>
             </div>
             <div className="flex-0 flex flex-col gap-2">
