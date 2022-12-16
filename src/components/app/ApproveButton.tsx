@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import useDebounce from "src/hooks/useDebounce";
-import { ethers } from "ethers";
+import { ethers, BigNumber } from "ethers";
 import {
   usePrepareContractWrite,
   useContractWrite,
@@ -13,10 +13,9 @@ export interface IApprove {
 }
 
 const ApproveButton: React.FC<IApprove> = (props) => {
-  const debouncedInputAmount = useDebounce(
-    ethers.utils.parseUnits(`${props.inputAmount}`, 6),
-    500
-  );
+  const debouncedInputAmount = props.inputAmount
+    ? useDebounce(ethers.utils.parseUnits(`${props.inputAmount}`, 6), 500)
+    : useDebounce(ethers.utils.parseUnits("0", 6), 500);
   const { config } = usePrepareContractWrite({
     //@todo hard coded USDC address on Mainnet, to be replaced depends on chains/input token
     address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",

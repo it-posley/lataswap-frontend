@@ -5,9 +5,10 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
-import { ethers } from "ethers";
+import { ethers, BigNumber } from "ethers";
 import useDebounce from "src/hooks/useDebounce";
 import ApproveButton from "./ApproveButton";
+import readBalance from "./data/readBalance";
 // import WithdrawButton from "./WithDrawButton";
 
 export interface ISwap {
@@ -16,10 +17,10 @@ export interface ISwap {
 
 const Swap: React.FC<ISwap> = ({ className }) => {
   const [inputAmount, setInputAmount] = useState(0);
-  const debouncedInputAmount = useDebounce(
-    ethers.utils.parseUnits(`${inputAmount}`, 6),
-    500
-  );
+
+  const debouncedInputAmount = inputAmount
+    ? useDebounce(ethers.utils.parseUnits(`${inputAmount}`, 6), 500)
+    : useDebounce(ethers.utils.parseUnits("0", 6), 500);
 
   //mint function
 
@@ -72,7 +73,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setInputAmount(parseFloat(e.target.value))
                 }
-               value={inputAmount}
+                value={inputAmount}
               ></input>
             </div>
             <div className="flex-0 flex flex-col gap-2">
@@ -82,7 +83,9 @@ const Swap: React.FC<ISwap> = ({ className }) => {
                 </button>
               </div>
               <div>
-                <p className="text-sm font-bold text-gray-400">Balance: 0</p>
+                <p className="text-sm font-bold text-gray-400">
+                  Balance: {readBalance}
+                </p>
               </div>
             </div>
           </div>
