@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { Logo } from "../ui";
-import ConnectButton2 from "./ConnectButton2";
+import ConnectButton from "./ConnectButton";
 
 export interface IHeader {
   className?: string;
 }
 
 const navigation = [
-  { name: "Swap", href: "#" },
-  { name: "Funds", href: "#" },
+  { name: "Swap", href: "/app" },
+  { name: "Funds", href: "/dashboard" },
 ];
 
 const Header: React.FC<IHeader> = ({ className }) => {
@@ -33,7 +33,7 @@ const Header: React.FC<IHeader> = ({ className }) => {
           </div>
         </nav>
         <div className="flex items-center">
-          <ConnectButton2 />
+          <ConnectButton />
         </div>
       </div>
     </header>
