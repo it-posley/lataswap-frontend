@@ -5,10 +5,10 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
-import { BigNumber } from "ethers";
+import { ethers } from "ethers";
 import useDebounce from "src/hooks/useDebounce";
 import ApproveButton from "./ApproveButton";
-import WithdrawButton from "./WithDrawButton";
+// import WithdrawButton from "./WithDrawButton";
 
 export interface ISwap {
   className?: string;
@@ -16,8 +16,10 @@ export interface ISwap {
 
 const Swap: React.FC<ISwap> = ({ className }) => {
   const [inputAmount, setInputAmount] = useState(0);
-  const debouncedInputAmount = useDebounce(inputAmount, 500);
-  const USDC_Decimal = 10 ** 6;
+  const debouncedInputAmount = useDebounce(
+    ethers.utils.parseUnits(`${inputAmount}`, 6),
+    500
+  );
 
   //mint function
 
@@ -43,7 +45,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
       },
     ],
     functionName: "userDeposit",
-    args: [BigNumber.from(debouncedInputAmount)],
+    args: [debouncedInputAmount],
     enabled: Boolean(debouncedInputAmount),
   });
 
@@ -110,7 +112,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
           >
             {isLoading ? "Minting" : "Mint"}
           </button>
-          <WithdrawButton inputAmount={inputAmount} />
+          {/* <WithdrawButton inputAmount={inputAmount} /> */}
           {/* {isPrepareError && <div>Prepare Error : {prepareError?.message}</div>}
           {isError && <div>Error : {error?.message}</div>} */}
         </div>
