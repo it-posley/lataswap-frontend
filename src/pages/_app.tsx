@@ -18,7 +18,7 @@ import "../styles/globals.css";
 
 const alchemyId = process.env.ALCHEMY_ID;
 
-const chains = [hardhat];
+const chains = [hardhat, arbitrum];
 
 const client = createClient(
   getDefaultClient({

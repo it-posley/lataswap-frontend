@@ -8,8 +8,9 @@ import {
 import { ethers, BigNumber } from "ethers";
 import useDebounce from "src/hooks/useDebounce";
 import ApproveButton from "./ApproveButton";
-import readBalance from "./data/readBalance";
-// import WithdrawButton from "./WithDrawButton";
+import ReadBalance from "./data/ReadBalance";
+import ReadTokenBalance from "./data/ReadTokenBalance";
+import useIsMounted from "../useIsMounted";
 
 export interface ISwap {
   className?: string;
@@ -17,6 +18,7 @@ export interface ISwap {
 
 const Swap: React.FC<ISwap> = ({ className }) => {
   const [inputAmount, setInputAmount] = useState(0);
+  const mounted = useIsMounted();
 
   const debouncedInputAmount = inputAmount
     ? useDebounce(ethers.utils.parseUnits(`${inputAmount}`, 6), 500)
@@ -53,7 +55,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
   const { data, error, isError, write } = useContractWrite(config);
   const { isLoading, isSuccess } = useWaitForTransaction({ hash: data?.hash });
 
-  return (
+  return mounted ? (
     <div className="mt-5">
       <div className="min-w-lg relative flex max-w-lg flex-col gap-3 rounded-lg border border-slate-300 bg-white px-3 py-4 shadow">
         {/* swap window header */}
@@ -84,23 +86,33 @@ const Swap: React.FC<ISwap> = ({ className }) => {
               </div>
               <div>
                 <p className="text-sm font-bold text-gray-400">
-                  {/* <readBalance /> */}
+                  <ReadBalance />
                 </p>
               </div>
             </div>
           </div>
           {/* out */}
-          <div className="w-full rounded-xl border border-slate-100 bg-slate-100 px-3 py-5 text-slate-700 hover:border-slate-200">
-            <input
-              type="number"
-              className="block w-full appearance-none border-none bg-slate-100 text-2xl font-bold outline-0"
-              placeholder="0"
-            ></input>
+          <div className="mb-1 flex w-full rounded-xl border border-slate-100 bg-slate-100 px-3 py-5 text-slate-700 hover:border hover:border-slate-200">
+            <div className="flex-1">
+              <div
+                className="block w-full border-none bg-slate-100 text-2xl font-bold outline-0"
+              >
+                <ReadTokenBalance inputAmount={debouncedInputAmount} />
+              </div>
+            </div>
+            <div className="flex-0 flex flex-col gap-2">
+              <div>
+                <button className="rounded-xl bg-slate-300 px-3 font-bold text-slate-700 hover:bg-slate-400">
+                  LATA
+                </button>
+              </div>
+              <div>
+                <p className="text-sm font-bold text-gray-400">
+                  <ReadBalance />
+                </p>
+              </div>
+            </div>
           </div>
-          {/* switch button */}
-          <button className="absolute left-[calc(50%-1.25rem)] top-[calc(50%-0.5rem)] h-9 w-9 rounded-lg border-4 border-white bg-slate-200 p-1 text-slate-700 hover:bg-slate-300">
-            <ChevronDoubleDownIcon />
-          </button>
         </div>
         {/* submit button */}
         <div className="flex justify-center">
@@ -121,7 +133,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 Swap.displayName = "Swap";

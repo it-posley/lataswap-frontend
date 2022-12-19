@@ -1,14 +1,13 @@
-import { contractAddresses, abi } from "../../../../constants";
-import { useContractRead } from "wagmi";
-import { useAccount } from "wagmi";
+import { useAccount, useContractRead } from "wagmi";
 import { ethers, BigNumber } from "ethers";
+import { abi } from "../../../../constants";
 import useIsMounted from "../../useIsMounted";
 
-const ReadBalance = () => {
+const UserBalanceInUSDC = () => {
   const mounted = useIsMounted();
   const { address, connector, isConnected } = useAccount();
   const { data, isError, isLoading } = useContractRead({
-    address: contractAddresses[31337],
+    address: "0x2d13826359803522cCe7a4Cfa2c1b582303DD0B4",
     abi: [
       {
         inputs: [
@@ -18,11 +17,11 @@ const ReadBalance = () => {
             type: "address",
           },
         ],
-        name: "getUserUSDCBalance",
+        name: "userTotalBalanceInUSDC",
         outputs: [
           {
             internalType: "uint256",
-            name: "",
+            name: "AmountInUSDC",
             type: "uint256",
           },
         ],
@@ -30,17 +29,18 @@ const ReadBalance = () => {
         type: "function",
       },
     ],
-    functionName: "getUserUSDCBalance",
+    functionName: "userTotalBalanceInUSDC",
     args: [address!],
   });
 
-  const displayData = isConnected ? ethers.utils.formatUnits(data!, "6") : "0";
+  const displayData =
+    isConnected && data != undefined
+      ? ethers.utils.formatUnits(data!, "26")
+      : 0;
 
-  return mounted ? (
-    { displayData } && <div>{displayData}</div>
-  ) : (
-    <div>null</div>
-  );
+  console.log(data);
+
+  return mounted ? displayData : 0;
 };
 
-export default ReadBalance;
+export default UserBalanceInUSDC;
