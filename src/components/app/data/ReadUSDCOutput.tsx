@@ -3,7 +3,7 @@ import { ethers, BigNumber } from "ethers";
 import { abi } from "../../../../constants";
 import useIsMounted from "../../useIsMounted";
 
-const UserBalanceInUSDC = () => {
+const ReadUSDCOutput = (props) => {
   const mounted = useIsMounted();
   const { address, connector, isConnected } = useAccount();
   const { data, isError, isLoading } = useContractRead({
@@ -12,12 +12,12 @@ const UserBalanceInUSDC = () => {
       {
         inputs: [
           {
-            internalType: "address",
-            name: "user",
-            type: "address",
+            internalType: "uint256",
+            name: "lataTokenAmount",
+            type: "uint256",
           },
         ],
-        name: "userTotalBalanceInUSDC",
+        name: "estimateRedeemAmountInUSDC",
         outputs: [
           {
             internalType: "uint256",
@@ -29,18 +29,15 @@ const UserBalanceInUSDC = () => {
         type: "function",
       },
     ],
-    functionName: "userTotalBalanceInUSDC",
-    args: [address!],
+    functionName: "estimateRedeemAmountInUSDC",
+    args: [props.inputAmount],
   });
 
-  const displayData =
-    isConnected && data != undefined
-      ? ethers.utils.formatUnits(data!, "26")
-      : 0;
+  const displayData = BigNumber.isBigNumber(data)
+    ? ethers.utils.formatUnits(data!, "26")
+    : "0";
 
-  console.log(data);
-
-  return mounted ? displayData : 0;
+  return mounted ? <div>{Number(displayData)}</div> : <div>{null}</div>;
 };
 
-export default UserBalanceInUSDC;
+export default ReadUSDCOutput;

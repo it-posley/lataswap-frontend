@@ -1,4 +1,4 @@
-import { contractAddresses, abi } from "../../../constants";
+import { contractAddresses, abi } from "../../../../constants";
 import * as React from "react";
 import { useState } from "react";
 import useDebounce from "src/hooks/useDebounce";
@@ -9,47 +9,37 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 
-export interface IApprove {
-  debouncedInputAmount: BigNumber;
+export interface IWithdraw {
+  inputAmount: number;
 }
 
-const ApproveButton: React.FC<IApprove> = (props) => {
-  const chainID = 31337;
+const WithdrawButton: React.FC<IWithdraw> = (props) => {
+  //   const chainID = 31337;
+  const debouncedInputAmount = props.inputAmount
+    ? useDebounce(ethers.utils.parseUnits(`${props.inputAmount}`, 0), 500)
+    : useDebounce(ethers.utils.parseUnits("0", 0), 500);
   const { config } = usePrepareContractWrite({
     //@todo hard coded USDC address on Mainnet, to be replaced depends on chains/input token
-    address: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+    address: contractAddresses[31337],
     abi: [
       {
-        constant: false,
         inputs: [
           {
-            name: "_spender",
-            type: "address",
-          },
-          {
-            name: "_value",
+            internalType: "uint256",
+            name: "amountInLataToken",
             type: "uint256",
           },
         ],
-        name: "approve",
-        outputs: [
-          {
-            name: "",
-            type: "bool",
-          },
-        ],
-        payable: false,
+        name: "userWithdraw",
+        outputs: [],
         stateMutability: "nonpayable",
         type: "function",
       },
     ],
-    functionName: "approve",
+    functionName: "userWithdraw",
     //@todo hard code pool address, to be replaced
-    args: [
-      "0xc3023a2c9f7B92d1dd19F488AF6Ee107a78Df9DB",
-      props.debouncedInputAmount,
-    ],
-    enabled: Boolean(props.debouncedInputAmount),
+    args: [debouncedInputAmount],
+    enabled: Boolean(debouncedInputAmount),
   });
 
   const { data, error, isError, write } = useContractWrite(config);
@@ -66,4 +56,4 @@ const ApproveButton: React.FC<IApprove> = (props) => {
   );
 };
 
-export default ApproveButton;
+export default WithdrawButton;

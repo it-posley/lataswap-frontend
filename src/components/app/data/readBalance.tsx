@@ -32,12 +32,14 @@ const ReadBalance = () => {
     ],
     functionName: "getUserUSDCBalance",
     args: [address!],
+    watch: true,
   });
 
-  const displayData = isConnected ? ethers.utils.formatUnits(data!, "6") : "0";
+  const displayData =
+    data != undefined ? ethers.utils.formatUnits(data!, "6") : "0";
 
   return mounted ? (
-    { displayData } && <div>{displayData}</div>
+    { displayData } && <div>{Number(displayData).toFixed(4)}</div>
   ) : (
     <div>null</div>
   );

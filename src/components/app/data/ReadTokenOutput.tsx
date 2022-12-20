@@ -3,7 +3,11 @@ import { ethers, BigNumber } from "ethers";
 import { abi } from "../../../../constants";
 import useIsMounted from "../../useIsMounted";
 
-const UserBalanceInUSDC = () => {
+export interface IReadTokenOutput {
+  inputAmount: BigNumber;
+}
+
+const ReadTokenOutput: React.FC<IReadTokenOutput> = (props) => {
   const mounted = useIsMounted();
   const { address, connector, isConnected } = useAccount();
   const { data, isError, isLoading } = useContractRead({
@@ -12,16 +16,16 @@ const UserBalanceInUSDC = () => {
       {
         inputs: [
           {
-            internalType: "address",
-            name: "user",
-            type: "address",
+            internalType: "uint256",
+            name: "amountInUSDC",
+            type: "uint256",
           },
         ],
-        name: "userTotalBalanceInUSDC",
+        name: "_calUserTokenMint",
         outputs: [
           {
             internalType: "uint256",
-            name: "AmountInUSDC",
+            name: "tokenAmount",
             type: "uint256",
           },
         ],
@@ -29,18 +33,19 @@ const UserBalanceInUSDC = () => {
         type: "function",
       },
     ],
-    functionName: "userTotalBalanceInUSDC",
-    args: [address!],
+    functionName: "_calUserTokenMint",
+    args: [ethers.utils.parseUnits(`${props.inputAmount}`, 6)],
   });
 
-  const displayData =
-    isConnected && data != undefined
-      ? ethers.utils.formatUnits(data!, "26")
-      : 0;
+  const displayData = BigNumber.isBigNumber(data)
+    ? ethers.utils.formatUnits(data!, "4")
+    : "0";
 
-  console.log(data);
-
-  return mounted ? displayData : 0;
+  return mounted ? (
+    <div>{Number(displayData) * 0.99880143}</div>
+  ) : (
+    <div>{0}</div>
+  );
 };
 
-export default UserBalanceInUSDC;
+export default ReadTokenOutput;

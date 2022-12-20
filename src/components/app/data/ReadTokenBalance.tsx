@@ -2,27 +2,26 @@ import { useAccount, useContractRead } from "wagmi";
 import { ethers, BigNumber } from "ethers";
 import { abi } from "../../../../constants";
 import useIsMounted from "../../useIsMounted";
-import useDebounce from "src/hooks/useDebounce";
 
-const ReadTokenBalance = (props) => {
+const ReadTokenBalance = () => {
   const mounted = useIsMounted();
   const { address, connector, isConnected } = useAccount();
   const { data, isError, isLoading } = useContractRead({
-    address: "0x2d13826359803522cCe7a4Cfa2c1b582303DD0B4",
+    address: "0xc3023a2c9f7B92d1dd19F488AF6Ee107a78Df9DB",
     abi: [
       {
         inputs: [
           {
-            internalType: "uint256",
-            name: "amountInUSDC",
-            type: "uint256",
+            internalType: "address",
+            name: "user",
+            type: "address",
           },
         ],
-        name: "_calUserTokenMint",
+        name: "getUserBalanceOfLataToken",
         outputs: [
           {
             internalType: "uint256",
-            name: "tokenAmount",
+            name: "userLataBalance",
             type: "uint256",
           },
         ],
@@ -30,15 +29,20 @@ const ReadTokenBalance = (props) => {
         type: "function",
       },
     ],
-    functionName: "_calUserTokenMint",
-    args: [ethers.utils.parseUnits(`${props.inputAmount}`, 6)],
+    functionName: "getUserBalanceOfLataToken",
+    args: [address!],
+    watch: true,
   });
 
   const displayData = BigNumber.isBigNumber(data)
-    ? ethers.utils.formatUnits(data!, "24")
+    ? ethers.utils.formatUnits(data!, "36")
     : "0";
 
-  return mounted ? <div>{displayData}</div> : <div>{null}</div>;
+  return mounted ? (
+    <div>{Number(displayData).toFixed(4)}</div>
+  ) : (
+    <div>{null}</div>
+  );
 };
 
 export default ReadTokenBalance;
