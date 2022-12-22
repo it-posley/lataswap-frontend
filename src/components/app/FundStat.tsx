@@ -5,43 +5,43 @@ import {
   AtSymbolIcon,
 } from "@heroicons/react/24/outline";
 import FundHoldings from "./FundHoldings";
+import NAV from "./data/NAV";
 
 export interface IFundStat {
   className?: string;
 }
 
-const stats = [
-  {
-    id: 1,
-    name: "NAV",
-    stat: "71,897",
-    icon: CircleStackIcon,
-    change: "122",
-    changeType: "increase",
-  },
-  {
-    id: 2,
-    name: "NAV per unit",
-    stat: "13.22",
-    icon: CurrencyDollarIcon,
-    change: "5.4%",
-    changeType: "increase",
-  },
-  {
-    id: 3,
-    name: "Units",
-    stat: "10000",
-    icon: AtSymbolIcon,
-    change: "3.2%",
-    changeType: "decrease",
-  },
-];
-
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
-}
-
 const FundStat: React.FC<IFundStat> = ({ className }) => {
+  const stats = [
+    {
+      id: 1,
+      name: "NAV",
+      stat: Number(NAV()).toFixed(4),
+      icon: CircleStackIcon,
+      change: "122",
+      changeType: "increase",
+    },
+    {
+      id: 2,
+      name: "NAV per unit",
+      stat: "13.22",
+      icon: CurrencyDollarIcon,
+      change: "5.4%",
+      changeType: "increase",
+    },
+    {
+      id: 3,
+      name: "Units",
+      stat: "10000",
+      icon: AtSymbolIcon,
+      change: "3.2%",
+      changeType: "decrease",
+    },
+  ];
+
+  function classNames(...classes: any) {
+    return classes.filter(Boolean).join(" ");
+  }
   return (
     <div className="max-w-3xl pl-1.5 pr-8">
       <dl className="mt-5 grid grid-cols-1 gap-3">
