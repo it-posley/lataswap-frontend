@@ -16,7 +16,7 @@ export interface IApprove {
 const ApproveLataButton: React.FC<IApprove> = (props) => {
   const { config } = usePrepareContractWrite({
     //@todo hard coded USDC address on Mainnet, to be replaced depends on chains/input token
-    address: "0x7352Ea4c7C5D35B757b86C7a599f67bfF0FdF29b",
+    address: "0x71AcaAF23e047029e9Da1BCBc247cA26F9512EF6",
     abi: [
       {
         constant: false,
