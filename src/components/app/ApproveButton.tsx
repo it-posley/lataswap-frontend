@@ -17,7 +17,7 @@ const ApproveButton: React.FC<IApprove> = (props) => {
   const chainID = 31337;
   const { config } = usePrepareContractWrite({
     //@todo hard coded USDC address on Mainnet, to be replaced depends on chains/input token
-    address: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+    address: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
     abi: [
       {
         constant: false,
@@ -46,7 +46,7 @@ const ApproveButton: React.FC<IApprove> = (props) => {
     functionName: "approve",
     //@todo hard code pool address, to be replaced
     args: [
-      "0xc3023a2c9f7B92d1dd19F488AF6Ee107a78Df9DB",
+      "0x89987589f99C4b1c05061C1484D21699949f034A",
       props.debouncedInputAmount,
     ],
     enabled: Boolean(props.debouncedInputAmount),

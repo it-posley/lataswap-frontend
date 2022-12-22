@@ -8,7 +8,7 @@ const ReadBalance = () => {
   const mounted = useIsMounted();
   const { address, connector, isConnected } = useAccount();
   const { data, isError, isLoading } = useContractRead({
-    address: contractAddresses[31337],
+    address: "0x89987589f99C4b1c05061C1484D21699949f034A",
     abi: [
       {
         inputs: [
@@ -32,7 +32,9 @@ const ReadBalance = () => {
     ],
     functionName: "getUserUSDCBalance",
     args: [address!],
-    watch: true,
+    enabled: isConnected,
+    cacheOnBlock: true,
+    cacheTime: 50,
   });
 
   const displayData =
@@ -41,7 +43,7 @@ const ReadBalance = () => {
   return mounted ? (
     { displayData } && <div>{Number(displayData).toFixed(4)}</div>
   ) : (
-    <div>null</div>
+    <div>{0}</div>
   );
 };
 

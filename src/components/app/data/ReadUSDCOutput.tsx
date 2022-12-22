@@ -3,11 +3,14 @@ import { ethers, BigNumber } from "ethers";
 import { abi } from "../../../../constants";
 import useIsMounted from "../../useIsMounted";
 
-const ReadUSDCOutput = (props) => {
+export interface IReadUSDCOutput {
+  inputAmount: BigNumber;
+}
+const ReadUSDCOutput: React.FC<IReadUSDCOutput> = (props) => {
   const mounted = useIsMounted();
   const { address, connector, isConnected } = useAccount();
   const { data, isError, isLoading } = useContractRead({
-    address: "0xc3023a2c9f7B92d1dd19F488AF6Ee107a78Df9DB",
+    address: "0x89987589f99C4b1c05061C1484D21699949f034A",
     abi: [
       {
         inputs: [
@@ -27,6 +30,7 @@ const ReadUSDCOutput = (props) => {
         ],
         stateMutability: "view",
         type: "function",
+        enabled: isConnected,
       },
     ],
     functionName: "estimateRedeemAmountInUSDC",
@@ -34,10 +38,10 @@ const ReadUSDCOutput = (props) => {
   });
 
   const displayData = BigNumber.isBigNumber(data)
-    ? ethers.utils.formatUnits(data!, "26")
+    ? ethers.utils.formatUnits(data!, "38")
     : "0";
 
-  return mounted ? <div>{Number(displayData)}</div> : <div>{null}</div>;
+  return mounted ? <div>{Number(displayData)}</div> : <div>{0}</div>;
 };
 
 export default ReadUSDCOutput;

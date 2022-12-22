@@ -7,7 +7,7 @@ const UserBalanceInUSDC = () => {
   const mounted = useIsMounted();
   const { address, connector, isConnected } = useAccount();
   const { data, isError, isLoading } = useContractRead({
-    address: "0xc3023a2c9f7B92d1dd19F488AF6Ee107a78Df9DB",
+    address: "0x89987589f99C4b1c05061C1484D21699949f034A",
     abi: [
       {
         inputs: [
@@ -31,14 +31,13 @@ const UserBalanceInUSDC = () => {
     ],
     functionName: "userTotalBalanceInUSDC",
     args: [address!],
+    enabled: isConnected,
   });
 
   const displayData =
     isConnected && data != undefined
       ? ethers.utils.formatUnits(data!, "26")
       : 0;
-
-  console.log(data);
 
   return mounted ? displayData : 0;
 };

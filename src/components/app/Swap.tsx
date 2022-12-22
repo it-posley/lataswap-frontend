@@ -35,7 +35,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
     error: prepareError,
     isError: isPrepareError,
   } = usePrepareContractWrite({
-    address: "0xc3023a2c9f7B92d1dd19F488AF6Ee107a78Df9DB",
+    address: "0x89987589f99C4b1c05061C1484D21699949f034A",
     abi: [
       {
         inputs: [
@@ -109,9 +109,9 @@ const Swap: React.FC<ISwap> = ({ className }) => {
                 </button>
               </div>
               <div>
-                <p className="text-sm font-bold text-gray-400">
+                <div className="text-sm font-bold text-gray-400">
                   <ReadTokenBalance />
-                </p>
+                </div>
               </div>
             </div>
           </div>

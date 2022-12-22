@@ -7,7 +7,7 @@ const ReadTokenBalance = () => {
   const mounted = useIsMounted();
   const { address, connector, isConnected } = useAccount();
   const { data, isError, isLoading } = useContractRead({
-    address: "0xc3023a2c9f7B92d1dd19F488AF6Ee107a78Df9DB",
+    address: "0x89987589f99C4b1c05061C1484D21699949f034A",
     abi: [
       {
         inputs: [
@@ -31,17 +31,19 @@ const ReadTokenBalance = () => {
     ],
     functionName: "getUserBalanceOfLataToken",
     args: [address!],
-    watch: true,
+    enabled: isConnected,
+    cacheOnBlock: true,
+    cacheTime: 50,
   });
 
   const displayData = BigNumber.isBigNumber(data)
-    ? ethers.utils.formatUnits(data!, "36")
+    ? ethers.utils.formatUnits(data!, "18")
     : "0";
 
   return mounted ? (
     <div>{Number(displayData).toFixed(4)}</div>
   ) : (
-    <div>{null}</div>
+    <div>loading</div>
   );
 };
 

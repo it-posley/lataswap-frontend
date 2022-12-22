@@ -11,7 +11,7 @@ const ReadTokenOutput: React.FC<IReadTokenOutput> = (props) => {
   const mounted = useIsMounted();
   const { address, connector, isConnected } = useAccount();
   const { data, isError, isLoading } = useContractRead({
-    address: "0xc3023a2c9f7B92d1dd19F488AF6Ee107a78Df9DB",
+    address: "0x89987589f99C4b1c05061C1484D21699949f034A",
     abi: [
       {
         inputs: [
@@ -35,17 +35,14 @@ const ReadTokenOutput: React.FC<IReadTokenOutput> = (props) => {
     ],
     functionName: "_calUserTokenMint",
     args: [ethers.utils.parseUnits(`${props.inputAmount}`, 6)],
+    enabled: isConnected,
   });
 
   const displayData = BigNumber.isBigNumber(data)
-    ? ethers.utils.formatUnits(data!, "4")
+    ? ethers.utils.formatUnits(data!, "6")
     : "0";
 
-  return mounted ? (
-    <div>{Number(displayData) * 0.99880143}</div>
-  ) : (
-    <div>{0}</div>
-  );
+  return mounted ? <div>{Number(displayData)}</div> : <div>{0}</div>;
 };
 
 export default ReadTokenOutput;

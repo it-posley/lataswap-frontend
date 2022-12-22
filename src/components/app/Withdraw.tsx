@@ -7,10 +7,10 @@ import {
 import { ethers, BigNumber } from "ethers";
 import useDebounce from "src/hooks/useDebounce";
 import ReadBalance from "./data/ReadBalance";
-import ReadTokenOutput from "./data/ReadTokenOutput";
 import ReadUSDCOutput from "./data/ReadUSDCOutput";
 import ReadTokenBalance from "./data/ReadTokenBalance";
 import useIsMounted from "../useIsMounted";
+import ApproveLataButton from "./ApproveLataButton";
 
 export interface IWithdraw {
   className?: string;
@@ -20,9 +20,10 @@ const Withdraw: React.FC<IWithdraw> = ({ className }) => {
   const [inputAmount, setInputAmount] = useState(0);
   const mounted = useIsMounted();
 
-  const debouncedInputAmount = inputAmount
-    ? useDebounce(ethers.utils.parseUnits(`${inputAmount}`, 18), 500)
-    : null;
+  const debouncedInputAmount =
+    inputAmount && inputAmount != 0
+      ? useDebounce(ethers.utils.parseUnits(`${inputAmount}`, 18), 500)
+      : useDebounce(BigNumber.from(0));
 
   //mint function
 
@@ -31,7 +32,7 @@ const Withdraw: React.FC<IWithdraw> = ({ className }) => {
     error: prepareError,
     isError: isPrepareError,
   } = usePrepareContractWrite({
-    address: "0xc3023a2c9f7B92d1dd19F488AF6Ee107a78Df9DB",
+    address: "0x89987589f99C4b1c05061C1484D21699949f034A",
     abi: [
       {
         inputs: [
@@ -55,7 +56,7 @@ const Withdraw: React.FC<IWithdraw> = ({ className }) => {
   const { data, error, isError, write } = useContractWrite(config);
   const { isLoading, isSuccess } = useWaitForTransaction({ hash: data?.hash });
 
-  return mounted ? (
+  return (
     <div className="mt-5">
       <div className="min-w-lg relative flex max-w-lg flex-col gap-3 rounded-lg border border-slate-300 bg-white px-3 py-4 shadow">
         {/* Withdraw window header */}
@@ -105,9 +106,9 @@ const Withdraw: React.FC<IWithdraw> = ({ className }) => {
                 </button>
               </div>
               <div>
-                <p className="text-sm font-bold text-gray-400">
+                <div className="text-sm font-bold text-gray-400">
                   <ReadBalance />
-                </p>
+                </div>
               </div>
             </div>
           </div>
@@ -115,6 +116,7 @@ const Withdraw: React.FC<IWithdraw> = ({ className }) => {
         </div>
         {/* submit button */}
         <div className="flex justify-center">
+          <ApproveLataButton debouncedInputAmount={debouncedInputAmount} />
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -130,7 +132,7 @@ const Withdraw: React.FC<IWithdraw> = ({ className }) => {
         </div>
       </div>
     </div>
-  ) : null;
+  );
 };
 
 Withdraw.displayName = "Withdraw";
