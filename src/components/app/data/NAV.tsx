@@ -7,7 +7,7 @@ const NAV = () => {
   const mounted = useIsMounted();
   const { address, connector, isConnected } = useAccount();
   const { data, isError, isLoading } = useContractRead({
-    address: "0x89987589f99C4b1c05061C1484D21699949f034A",
+    address: "0xA777139C4AF8b4182bf04b9366699fC513594acA",
     abi: [
       {
         inputs: [],
@@ -28,9 +28,7 @@ const NAV = () => {
   });
 
   const displayData =
-    isConnected && data != undefined
-      ? ethers.utils.formatUnits(data!, "26")
-      : 0;
+    isConnected && data != undefined ? ethers.utils.formatUnits(data!, "6") : 0;
 
   return mounted ? displayData : 0;
 };

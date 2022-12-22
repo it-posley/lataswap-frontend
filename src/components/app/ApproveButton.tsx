@@ -46,7 +46,7 @@ const ApproveButton: React.FC<IApprove> = (props) => {
     functionName: "approve",
     //@todo hard code pool address, to be replaced
     args: [
-      "0x89987589f99C4b1c05061C1484D21699949f034A",
+      "0xA777139C4AF8b4182bf04b9366699fC513594acA",
       props.debouncedInputAmount,
     ],
     enabled: Boolean(props.debouncedInputAmount),

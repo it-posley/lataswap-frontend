@@ -35,7 +35,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
     error: prepareError,
     isError: isPrepareError,
   } = usePrepareContractWrite({
-    address: "0x89987589f99C4b1c05061C1484D21699949f034A",
+    address: "0xA777139C4AF8b4182bf04b9366699fC513594acA",
     abi: [
       {
         inputs: [

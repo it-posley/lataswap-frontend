@@ -7,7 +7,7 @@ const TotalSupply = () => {
   const mounted = useIsMounted();
   const { address, connector, isConnected } = useAccount();
   const { data, isError, isLoading } = useContractRead({
-    address: "0x71AcaAF23e047029e9Da1BCBc247cA26F9512EF6",
+    address: "0x5eAb6e5230Af009b1B8E72586bF48807b351467a",
     abi: [
       {
         inputs: [],
