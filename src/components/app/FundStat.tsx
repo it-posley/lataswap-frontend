@@ -6,6 +6,7 @@ import {
 } from "@heroicons/react/24/outline";
 import FundHoldings from "./FundHoldings";
 import NAV from "./data/NAV";
+import TotalSupply from "./data/TotalSupply";
 
 export interface IFundStat {
   className?: string;
@@ -24,7 +25,7 @@ const FundStat: React.FC<IFundStat> = ({ className }) => {
     {
       id: 2,
       name: "NAV per unit",
-      stat: "13.22",
+      stat: (Number(NAV()) / Number(TotalSupply())).toFixed(4),
       icon: CurrencyDollarIcon,
       change: "5.4%",
       changeType: "increase",
@@ -32,7 +33,7 @@ const FundStat: React.FC<IFundStat> = ({ className }) => {
     {
       id: 3,
       name: "Units",
-      stat: "10000",
+      stat: Number(TotalSupply()).toFixed(4),
       icon: AtSymbolIcon,
       change: "3.2%",
       changeType: "decrease",
