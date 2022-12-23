@@ -35,9 +35,7 @@ const UserBalanceInUSDC = () => {
   });
 
   const displayData =
-    isConnected && data != undefined
-      ? ethers.utils.formatUnits(data!, "36")
-      : 0;
+    isConnected && data != undefined ? ethers.utils.formatUnits(data!, "6") : 0;
 
   return mounted ? displayData : 0;
 };

@@ -30,7 +30,7 @@ const ReadUSDCOutput: React.FC<IReadUSDCOutput> = (props) => {
         ],
         stateMutability: "view",
         type: "function",
-        enabled: isConnected,
+        enabled: false,
       },
     ],
     functionName: "estimateRedeemAmountInUSDC",
@@ -38,7 +38,7 @@ const ReadUSDCOutput: React.FC<IReadUSDCOutput> = (props) => {
   });
 
   const displayData = BigNumber.isBigNumber(data)
-    ? ethers.utils.formatUnits(data!, "38")
+    ? ethers.utils.formatUnits(data!, "6")
     : "0";
 
   return mounted ? <div>{Number(displayData)}</div> : <div>{0}</div>;

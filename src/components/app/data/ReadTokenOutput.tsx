@@ -17,32 +17,37 @@ const ReadTokenOutput: React.FC<IReadTokenOutput> = (props) => {
         inputs: [
           {
             internalType: "uint256",
-            name: "amountInUSDC",
+            name: "amountInTotalAfterSwap",
             type: "uint256",
           },
         ],
-        name: "_calUserTokenMint",
+        name: "_getExchangeRate",
         outputs: [
           {
             internalType: "uint256",
-            name: "tokenAmount",
+            name: "",
             type: "uint256",
           },
         ],
         stateMutability: "view",
         type: "function",
+        enabled: false,
       },
     ],
-    functionName: "_calUserTokenMint",
-    args: [ethers.utils.parseUnits(`${props.inputAmount}`, 6)],
+    functionName: "_getExchangeRate",
+    args: [BigNumber.from(0)],
     enabled: isConnected,
   });
 
   const displayData = BigNumber.isBigNumber(data)
-    ? ethers.utils.formatUnits(data!, "6")
+    ? ethers.utils.formatUnits(data!, "0")
     : "0";
 
-  return mounted ? <div>{Number(displayData)}</div> : <div>{0}</div>;
+  return mounted ? (
+    <div>{(Number(props.inputAmount) / Number(displayData)) * 10 ** 6}</div>
+  ) : (
+    <div>{0}</div>
+  );
 };
 
 export default ReadTokenOutput;

@@ -26,7 +26,7 @@ const Withdraw: React.FC<IWithdraw> = ({ className }) => {
       : useDebounce(BigNumber.from(0));
 
   //mint function
-  
+
   const {
     config,
     error: prepareError,
@@ -50,7 +50,7 @@ const Withdraw: React.FC<IWithdraw> = ({ className }) => {
     ],
     functionName: "userWithdraw",
     args: [debouncedInputAmount!],
-    enabled: Boolean(debouncedInputAmount),
+    enabled: false,
   });
 
   const { data, error, isError, write } = useContractWrite(config);

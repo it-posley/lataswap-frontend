@@ -19,7 +19,7 @@ const FundStat: React.FC<IFundStat> = ({ className }) => {
       name: "NAV",
       stat: Number(NAV()).toFixed(4),
       icon: CircleStackIcon,
-      change: "122",
+      change: "2.1%",
       changeType: "increase",
     },
     {

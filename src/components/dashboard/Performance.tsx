@@ -16,7 +16,7 @@ const stats = [
     name: "NAV",
     stat: "71,897",
     icon: CircleStackIcon,
-    change: "122",
+    change: "2.4%",
     changeType: "increase",
   },
   {

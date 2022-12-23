@@ -53,7 +53,6 @@ const Swap: React.FC<ISwap> = ({ className }) => {
     ],
     functionName: "userDeposit",
     args: [debouncedInputAmount],
-    enabled: Boolean(debouncedInputAmount),
   });
 
   const { data, error, isError, write } = useContractWrite(config);
