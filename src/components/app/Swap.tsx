@@ -15,6 +15,7 @@ import ReadTokenOutput from "./data/ReadTokenOutput";
 import ReadTokenBalance from "./data/ReadTokenBalance";
 import useIsMounted from "../useIsMounted";
 import Router from "next/router";
+import { boolean } from "zod";
 
 export interface ISwap {
   className?: string;
@@ -24,6 +25,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
   const [inputAmount, setInputAmount] = useState(0);
   const mounted = useIsMounted();
   const { address, connector, isConnected } = useAccount();
+  const [reload, setReload] = useState(false);
 
   const debouncedInputAmount =
     inputAmount && inputAmount != 0
@@ -41,6 +43,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
     abi: abi,
     functionName: "userDeposit",
     args: [debouncedInputAmount],
+    enabled: Boolean(debouncedInputAmount),
   });
 
   const { data, error, isError, write } = useContractWrite(config);

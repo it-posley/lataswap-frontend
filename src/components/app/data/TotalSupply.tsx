@@ -24,6 +24,7 @@ const TotalSupply = () => {
       },
     ],
     functionName: "totalSupply",
+    watch: true,
   });
 
   const displayData =

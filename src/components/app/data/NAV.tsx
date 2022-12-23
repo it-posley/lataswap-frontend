@@ -24,6 +24,7 @@ const NAV = () => {
       },
     ],
     functionName: "_calTotalValueOfPoolinUSDC",
+    watch: true,
   });
 
   const displayData =

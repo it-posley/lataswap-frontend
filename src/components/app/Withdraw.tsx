@@ -53,6 +53,7 @@ const Withdraw: React.FC<IWithdraw> = ({ className }) => {
     ],
     functionName: "userWithdraw",
     args: [debouncedInputAmount!],
+    enabled: Boolean(debouncedInputAmount),
   });
 
   const { data, error, isError, write } = useContractWrite(config);
