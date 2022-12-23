@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { ChevronDoubleDownIcon } from "@heroicons/react/20/solid";
+import { abi } from "../../../constants";
 import {
+  useAccount,
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
@@ -22,6 +23,7 @@ export interface ISwap {
 const Swap: React.FC<ISwap> = ({ className }) => {
   const [inputAmount, setInputAmount] = useState(0);
   const mounted = useIsMounted();
+  const { address, connector, isConnected } = useAccount();
 
   const debouncedInputAmount =
     inputAmount && inputAmount != 0
@@ -36,21 +38,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
     isError: isPrepareError,
   } = usePrepareContractWrite({
     address: "0xA777139C4AF8b4182bf04b9366699fC513594acA",
-    abi: [
-      {
-        inputs: [
-          {
-            internalType: "uint256",
-            name: "amountInTotal",
-            type: "uint256",
-          },
-        ],
-        name: "userDeposit",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-      },
-    ],
+    abi: abi,
     functionName: "userDeposit",
     args: [debouncedInputAmount],
   });
@@ -73,6 +61,7 @@ const Swap: React.FC<ISwap> = ({ className }) => {
             <div className="flex-1">
               <input
                 type="number"
+                disabled={!isConnected}
                 className="block w-full border-none bg-slate-100 text-2xl font-bold outline-0"
                 placeholder="0"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

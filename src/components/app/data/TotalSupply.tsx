@@ -24,13 +24,10 @@ const TotalSupply = () => {
       },
     ],
     functionName: "totalSupply",
-    enabled: isConnected,
   });
 
   const displayData =
-    isConnected && data != undefined
-      ? ethers.utils.formatUnits(data!, "18")
-      : 0;
+    data != undefined ? ethers.utils.formatUnits(data!, "18") : 0;
 
   return mounted ? displayData : 0;
 };

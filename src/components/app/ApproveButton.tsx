@@ -49,7 +49,6 @@ const ApproveButton: React.FC<IApprove> = (props) => {
       "0xA777139C4AF8b4182bf04b9366699fC513594acA",
       props.debouncedInputAmount,
     ],
-    enabled: false,
   });
 
   const { data, error, isError, write } = useContractWrite(config);

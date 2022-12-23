@@ -1,5 +1,7 @@
 import { useState } from "react";
+
 import {
+  useAccount,
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
@@ -18,6 +20,7 @@ export interface IWithdraw {
 
 const Withdraw: React.FC<IWithdraw> = ({ className }) => {
   const [inputAmount, setInputAmount] = useState(0);
+  const { address, connector, isConnected } = useAccount();
   const mounted = useIsMounted();
 
   const debouncedInputAmount =
@@ -50,7 +53,6 @@ const Withdraw: React.FC<IWithdraw> = ({ className }) => {
     ],
     functionName: "userWithdraw",
     args: [debouncedInputAmount!],
-    enabled: false,
   });
 
   const { data, error, isError, write } = useContractWrite(config);
@@ -69,6 +71,7 @@ const Withdraw: React.FC<IWithdraw> = ({ className }) => {
           <div className="mb-1 flex w-full rounded-xl border border-slate-100 bg-slate-100 px-3 py-5 text-slate-700 hover:border hover:border-slate-200">
             <div className="flex-1">
               <input
+                disabled={!isConnected}
                 type="number"
                 className="block w-full border-none bg-slate-100 text-2xl font-bold outline-0"
                 placeholder="0"

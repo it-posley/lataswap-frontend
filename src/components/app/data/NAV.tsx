@@ -27,7 +27,7 @@ const NAV = () => {
   });
 
   const displayData =
-    isConnected && data != undefined ? ethers.utils.formatUnits(data!, "6") : 0;
+    data != undefined ? ethers.utils.formatUnits(data!, "6") : 0;
 
   return mounted ? displayData : 0;
 };

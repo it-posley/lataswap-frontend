@@ -32,6 +32,7 @@ const UserBalanceInUSDC = () => {
     functionName: "userTotalBalanceInUSDC",
     args: [address!],
     enabled: isConnected,
+    watch: true,
   });
 
   const displayData =

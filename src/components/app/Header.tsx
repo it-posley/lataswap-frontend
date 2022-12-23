@@ -8,7 +8,7 @@ export interface IHeader {
 
 const navigation = [
   { name: "Swap", href: "/app" },
-  { name: "Funds", href: "/dashboard" },
+  { name: "Portfolio", href: "/dashboard" },
 ];
 
 const Header: React.FC<IHeader> = ({ className }) => {

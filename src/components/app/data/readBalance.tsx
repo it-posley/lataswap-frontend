@@ -33,8 +33,7 @@ const ReadBalance = () => {
     functionName: "getUserUSDCBalance",
     args: [address!],
     enabled: isConnected,
-    cacheOnBlock: true,
-    cacheTime: 50,
+    watch: true,
   });
 
   const displayData =

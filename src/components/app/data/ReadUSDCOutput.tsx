@@ -30,7 +30,7 @@ const ReadUSDCOutput: React.FC<IReadUSDCOutput> = (props) => {
         ],
         stateMutability: "view",
         type: "function",
-        enabled: false,
+        enabled: isConnected,
       },
     ],
     functionName: "estimateRedeemAmountInUSDC",

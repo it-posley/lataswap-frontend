@@ -16,16 +16,16 @@ const FundStat: React.FC<IFundStat> = ({ className }) => {
   const stats = [
     {
       id: 1,
-      name: "NAV",
-      stat: Number(NAV()).toFixed(4),
+      name: "Assets Under Management",
+      stat: `$${Number(NAV()).toFixed(3)}`,
       icon: CircleStackIcon,
       change: "2.1%",
       changeType: "increase",
     },
     {
       id: 2,
-      name: "NAV per unit",
-      stat: (Number(NAV()) / Number(TotalSupply())).toFixed(4),
+      name: "LATA Price",
+      stat: `$${(Number(NAV()) / Number(TotalSupply())).toFixed(4)}`,
       icon: CurrencyDollarIcon,
       change: "5.4%",
       changeType: "increase",

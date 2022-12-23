@@ -31,12 +31,11 @@ const ReadTokenOutput: React.FC<IReadTokenOutput> = (props) => {
         ],
         stateMutability: "view",
         type: "function",
-        enabled: false,
+        enabled: isConnected,
       },
     ],
     functionName: "_getExchangeRate",
     args: [BigNumber.from(0)],
-    enabled: isConnected,
   });
 
   const displayData = BigNumber.isBigNumber(data)
